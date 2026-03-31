@@ -4,8 +4,7 @@ Predicting E-commerce purchases using Machine learning, and customer segmentatio
 Dataset
 The data was sourced from Harvard Dataverse, the dataset is titled ‘Open e-commerce 1.0: Five years of crowdsourced U.S. Amazon purchase histories with user demographics’. This dataset contains longitudinal purchases data from 5027 Amazon.com users in the US, spanning 2018 through 2022. It also includes demographic data and other consumer level variables for each user, which were collected through an online survey.
 
-Implementation
-View the full project report here
+
 
 Dataset preparation and Exploratory Data Analysis The dataset is preprocessed using Pandas in Python.
 A subset of the customers was selected, to include only residents of California to simplify the processing.
