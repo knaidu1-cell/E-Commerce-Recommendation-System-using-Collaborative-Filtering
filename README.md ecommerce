@@ -1,126 +1,31 @@
-🚀 E-commerce Recommender System using Spark ALS
+Ecommerce-Purchase-Prediction
+Predicting E-commerce purchases using Machine learning, and customer segmentation for targeted marketing
 
-This project builds a scalable, end-to-end product recommendation engine for an e-commerce platform using Apache Spark’s ALS (Alternating Least Squares) algorithm. The system integrates transactional, behavioral, and review data to deliver personalized top-N product recommendations to customers.
+Dataset
+The data was sourced from Harvard Dataverse, the dataset is titled ‘Open e-commerce 1.0: Five years of crowdsourced U.S. Amazon purchase histories with user demographics’. This dataset contains longitudinal purchases data from 5027 Amazon.com users in the US, spanning 2018 through 2022. It also includes demographic data and other consumer level variables for each user, which were collected through an online survey.
 
-⭐ Project Summary 
+Implementation
+View the full project report here
 
-Developed a distributed recommendation model capable of handling large-scale e-commerce data. The pipeline performs data ingestion, feature engineering, EDA, model training, evaluation, and recommendation generation — all in a single unified PySpark notebook.
+Dataset preparation and Exploratory Data Analysis The dataset is preprocessed using Pandas in Python.
+A subset of the customers was selected, to include only residents of California to simplify the processing.
 
-🧩 Key Objectives
+Data cleaning
 
-Integrate real-world e-commerce data (orders, products, customers, reviews).
+Target feature transformation: The target feature is defined as a binary variable of whether or not a customer would make a purchase in the next 60 days.
 
-Build explicit and implicit user–item interaction matrices for ALS.
+Feature engineering RFM (Recency, Frequency and Monetary) features are created per customer based on their purchase histories, for further cluster analysis.
 
-Train and tune a scalable collaborative filtering model.
+Cluster analysis Cluster Analysis is performed to cluster the customers by their survey responses and RFM features, to analyse purchasing behaviour. Rapid Miner was used to create the clustering workflow, using K Means clustering. The resulting 5 clusters showed important demographic andpurchasiing insights.
 
-Evaluate ranking performance using Precision@K and other metrics.
+ML Modeling The RFM cluster prediction is included as a feature for the ML model to predict future purchases.
+RapidMiner was used to create a Machine Learning model for binary classification, using Auto model for automated ML model training and performance analysis.
 
-Generate top-N personalized recommendations for customers and segments.
-
-🔧 Tech Stack
-
-Python · Apache Spark (MLlib ALS) · PySpark · Pandas · NumPy · Matplotlib · Seaborn · Jupyter Notebook
-
-🛠️ Data Preprocessing & Feature Engineering
-
-Joined multi-table e-commerce dataset (orders, order_items, products, sellers, reviews).
-
-Performed missing-value imputation, outlier removal, and log transformation of skewed price/freight distributions.
-
-Engineered customer–product interaction features including:
-
-Recency (days since last purchase)
-
-Frequency (# of orders and distinct items purchased)
-
-Monetary value (order totals)
-
-Product metadata (category, subcategory, attributes)
-
-Review-based scores
-
-Indexed customer and product IDs using StringIndexer for ALS compatibility.
-
-Constructed explicit (ratings) and implicit (purchase count) interaction matrices.
-
-📊 Exploratory Data Analysis (EDA)
-
-Analyzed order values, price distributions, freight costs, customer behavior, and review patterns.
-
-Computed category-level aggregates:
-
-Avg price
-
-Total orders
-
-Number of unique products
-
-Built RFM segmentation to understand customer purchase behavior.
-
-Visualized sales trends, customer activity, and rating distributions.
-
-🤖 Model Development — Spark MLlib ALS
-
-Constructed user–item rating matrix combining purchase frequency, recency, and review sentiment.
-
-Trained ALS model with hyperparameters:
-
-rank (latent factors)
-
-maxIter
-
-regParam
-
-cold-start strategy
-
-Used train–validation split to optimize model performance.
-
-Implemented both explicit and implicit feedback versions of ALS.
-
-📈 Evaluation
-
-Measured recommendation quality with Precision@K, NDCG, and Hit Rate.
-
-Validated using held-out customer–product interactions.
-
-Compared ALS implicit vs. explicit models and analyzed tradeoffs.
-
-🎯 Recommendation Generation
-
-Generated Top-N product recommendations per customer.
-
-Personalized suggestions based on behavioral patterns and predicted affinity scores.
-
-Created examples of:
-
-User profiles
-
-Recommended product lists
-
-Score interpretations
-
-Segmented users (new vs. frequent vs. high-value customers) to compare recommendation patterns.
-
-💡 Outcome
-
-Delivered a scalable, production-ready recommendation engine capable of powering personalization for an e-commerce platform. The system can be extended to:
-
-Dynamic pricing
-
-Cross-sell & upsell strategies
-
-Personalized marketing campaigns
-
-Customer segmentation workflows
-
-
-The Dataset is from a public dataset from OList, a Brazilian Ecommerce store:
-https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce?select=olist_products_dataset.csv]
-
-References:
-[1] https://medium.com/@brunoborges_38708/recommender-system-using-als-in-pyspark-10329e1d1ee1
-[2] https://towardsdatascience.com/recommendation-system-matrix-factorization-d61978660b4b
-[3] https://medium.com/@eliasah/deep-dive-into-matrix-factorization-for-recommender-systems-from-basics-to-implementation-79e4f1ea1660
-[4] https://haneulkim.medium.com/matrix-factorization-part-i-from-derivation-of-stochastic-gradient-descent-step-to-learning-17a7d8975965
+Evaluation
+Evaluation by comparing model performance using ROC curves showed that GLM model (Generalized Linear Model) performed the best.
+Below are the performance metrics of the GLM model:
+• AUC = 0.962
+• Precision = 0.908
+• Recall = 0.971
+• F-Measure = 0.938
 
